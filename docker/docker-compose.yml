@@ -1,0 +1,78 @@
+networks:
+  link_h1_h2:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:12::/64
+          gateway: fd00:12::ffff
+  link_h1_h3:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:13::/64
+          gateway: fd00:13::ffff
+  link_h2_h4:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:24::/64
+          gateway: fd00:24::ffff
+  link_h3_h4:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:34::/64
+          gateway: fd00:34::ffff
+
+services:
+  H1:
+    build: .
+    image: frr-srv6
+    container_name: H1
+    hostname: H1
+    privileged: true
+    networks:
+      link_h1_h2:
+        ipv6_address: fd00:12::1
+      link_h1_h3:
+        ipv6_address: fd00:13::1
+
+  H2:
+    build: .
+    image: frr-srv6
+    container_name: H2
+    hostname: H2
+    privileged: true
+    networks:
+      link_h1_h2:
+        ipv6_address: fd00:12::2
+      link_h2_h4:
+        ipv6_address: fd00:24::2
+
+  H3:
+    build: .
+    image: frr-srv6
+    container_name: H3
+    hostname: H3
+    privileged: true
+    networks:
+      link_h1_h3:
+        ipv6_address: fd00:13::3
+      link_h3_h4:
+        ipv6_address: fd00:34::3
+
+  H4:
+    build: .
+    image: frr-srv6
+    container_name: H4
+    hostname: H4
+    privileged: true
+    networks:
+      link_h2_h4:
+        ipv6_address: fd00:24::4
+      link_h3_h4:
+        ipv6_address: fd00:34::4
