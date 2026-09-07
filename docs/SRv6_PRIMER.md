@@ -135,7 +135,7 @@ SR-MPLS wins on header efficiency and on reusing hardware that is already deploy
 
 As of 2026, SR-MPLS remains the dominant deployment in service-provider WANs (Wide Area Networks), where existing MPLS investment is substantial. SRv6 is growing in greenfield data center and cloud environments — particularly AI training fabrics — where there is no MPLS to preserve and the network programming model is worth more than per-byte header efficiency.
 
-### Putting It Together: A Combined Example
+## Putting It Together: A Combined Example
 
 Now that both data planes have been introduced, here is a concrete example that brings together prefix segments, adjacency segments, and the SR-MPLS label stack.
 
