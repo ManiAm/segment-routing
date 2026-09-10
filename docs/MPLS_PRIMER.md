@@ -30,7 +30,7 @@ This section introduces two foundational terms — control plane and data plane 
 
 Every router has two conceptual layers:
 
-- **Control plane:** The "brain." It runs routing protocols (OSPF, IS-IS, BGP), exchanges topology information with neighboring routers, and builds the forwarding table that tells the router where to send packets.
+- **Control plane:** The "brain." It runs routing protocols (OSPF, IS-IS, BGP), exchanges topology information with neighboring routers, and builds the routing table that tells the router where to send packets.
 
 - **Data plane:** The "muscle." It takes each incoming packet, looks up the destination in the forwarding table, and sends the packet out the correct port. The data plane operates at **line rate** (processing every packet at the full speed of the incoming port) — often in dedicated hardware — and handles billions of packets per second.
 
