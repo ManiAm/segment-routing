@@ -29,6 +29,17 @@ A hands-on lab for learning Segment Routing over IPv6 (SRv6) with FRRouting (FRR
 
   Both should show `=y` or `=m`.
 
+  > **Which kernel version do I need?** This lab uses **conventional (full-length) SRv6 SIDs** — the `End` and `End.X` behaviors defined in RFC 8986. The Linux kernel has supported these since **kernel 4.10** (February 2017), so any modern distribution works. **Ubuntu 22.04 LTS (kernel 5.15)** is recommended — it is widely available and well-tested with this lab.
+  >
+  > | Ubuntu LTS           | Default (GA) kernel | Conventional SRv6 SIDs | SRv6 uSID (micro-SID) |
+  > |----------------------|---------------------|------------------------|-----------------------|
+  > | 20.04                | 5.4                 | ✅ Supported           | ❌ |
+  > | 22.04                | 5.15                | ✅ Supported           | ❌ |
+  > | 22.04.5 (HWE kernel) | 6.8                 | ✅ Supported           | ✅ Full support |
+  > | 24.04                | 6.8                 | ✅ Supported           | ✅ Full support |
+  >
+  > If you later want to experiment with **SRv6 uSID** (micro-SID / Compressed SID) — the compact encoding that packs multiple micro-instructions into a single 128-bit SID address — you will need a newer kernel. uSID behaviors were added incrementally to mainline Linux: **uN** (uSID Endpoint) in **kernel 6.1** (Dec 2022) and **uA** (uSID Adjacency) in **kernel 6.6** (Oct 2023). Use **Ubuntu 24.04 LTS** (ships kernel 6.8, supports everything) or install the HWE kernel on Ubuntu 22.04 (`sudo apt install linux-generic-hwe-22.04`, which upgrades to 6.8). On the FRR side, uSID locators are supported since FRR 8.1 via the `behavior usid` command under an SRv6 locator.
+
 - **Bridge netfilter disabled.** Docker's default bridge networking passes IPv6 packets through `ip6tables`, which can silently drop packets with an SRv6 Routing Header. Before running the SRv6 experiment, disable bridge netfilter:
 
   ```bash
